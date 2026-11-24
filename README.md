@@ -9,10 +9,13 @@ where it came from, which model answered, latency, and per-request token usage.
 
 | | URL |
 |---|---|
-| Frontend | _add after deploying (e.g. https://lyftr-chatbot.vercel.app)_ |
-| Backend  | _add after deploying (e.g. https://lyftr-chatbot-api.onrender.com)_ |
-| Health   | `<backend>/health` |
+| Frontend | https://lyftr-chatbot-theta.vercel.app |
+| Backend  | https://naman-lyftr-chat-api.onrender.com |
+| Health   | https://naman-lyftr-chat-api.onrender.com/health |
 | Demo video | _add link_ |
+
+> The backend runs on Render's free tier, which sleeps when idle: the first request after a quiet period can take
+> ~50 s to wake up. Open the health URL once before testing.
 
 Deploy steps are in [Deploying](#deploying) below.
 
