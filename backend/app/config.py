@@ -22,7 +22,7 @@ class Settings:
     # Comma-separated key pool. Key ids are key_1, key_2, ... in this order.
     api_keys: list[str] = field(default_factory=list)
     # LiteLLM model name used for every key in the pool.
-    model: str = "gemini/gemini-2.5-flash"
+    model: str = "gemini/gemini-3.5-flash-lite"
     database_url: str = "sqlite:///./data/app.db"
     allowed_origins: list[str] = field(default_factory=lambda: ["http://localhost:3000"])
     enable_failure_simulation: bool = False

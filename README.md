@@ -61,7 +61,7 @@ cd backend && pip install -r requirements-dev.txt && python -m pytest -q
 | Variable | Meaning | Default |
 |---|---|---|
 | `LLM_API_KEYS` | Comma-separated key pool (≥ 2). Ids are `key_1`, `key_2`, … in order | – |
-| `LLM_MODEL` | LiteLLM model name used for all keys | `gemini/gemini-2.5-flash` |
+| `LLM_MODEL` | LiteLLM model name used for all keys | `gemini/gemini-3.5-flash-lite` |
 | `DATABASE_URL` | SQLite location, e.g. `sqlite:////data/app.db` | `sqlite:///./data/app.db` |
 | `ALLOWED_ORIGINS` | Comma-separated CORS origins | `http://localhost:3000` |
 | `ENABLE_FAILURE_SIMULATION` | `true` enables the `X-Simulate-Failure` header | `false` |
@@ -75,6 +75,12 @@ cd backend && pip install -r requirements-dev.txt && python -m pytest -q
 Get free Gemini keys at <https://aistudio.google.com/apikey>. **Use two keys from different Google
 projects/accounts** — keys from the same project share one quota, so failover wouldn't help in practice.
 Real keys never go in the repo (`.env` is git-ignored).
+
+**Model availability.** Google retires and restricts Gemini models over time. If every request returns
+`503 all providers unavailable` and the backend log shows `NotFoundError`, set `LLM_MODEL` to a model your key can
+use. List them with
+`https://generativelanguage.googleapis.com/v1beta/models?key=<YOUR_KEY>` (look for `generateContent`), then use
+`gemini/<name>`. This project is verified with `gemini/gemini-3.5-flash-lite`.
 
 ## 3. Design decisions
 
@@ -165,7 +171,7 @@ persistence, CORS, no key leakage).
 - Backend: Python, FastAPI, LiteLLM, SQLite (stdlib `sqlite3`), pytest.
 - Frontend: React 18, Vite.
 - Infra: Docker (multi-stage), Docker Compose, GNU Make, nginx (static serving).
-- Model: Google Gemini via LiteLLM (`gemini/gemini-2.5-flash`, configurable with `LLM_MODEL`).
+- Model: Google Gemini via LiteLLM (`gemini/gemini-3.5-flash-lite`, configurable with `LLM_MODEL`).
 
 ## 6. Bonus features
 
